@@ -62,7 +62,7 @@ fn main() -> ExitCode {
                                 f.with_cover()
                             }
                         })
-                        .and_then(|f| f.save())
+                        .and_then(|f| f.save_as_wav())
                     {
                         Ok(p) => match args.quiet {
                             true => println!("{}", p.display()),

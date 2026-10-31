@@ -8,6 +8,9 @@ pub enum NcmError {
     Io(#[from] std::io::Error),
     #[error("Invalid data: {0}")]
     Invalid(String),
+    #[cfg(feature = "transcode")]
+    #[error("Transcode error: {0}")]
+    Transcode(String),
     #[error("Invalid music tag")]
     InvalidTag(#[from] id3::Error),
     #[cfg(feature = "cover_download")]

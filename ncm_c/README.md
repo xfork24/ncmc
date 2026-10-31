@@ -1,8 +1,13 @@
 # About
 
-A tool to convert ncm file to mp3/flac/...
+A tool to convert ncm file to wav.
 
-网易云音乐的ncm文件转换工具。
+网易云音乐的ncm文件转换工具，输出统一为 wav。
+
+The inner audio (mp3/flac/wav/aac/ogg/aiff/...) is decoded and transcoded to wav.
+If the inner codec cannot be decoded, the file is reported as failed (non-zero exit code).
+
+注意：wav 输出不携带歌曲元数据（标题/艺术家/封面等），文件名保留原歌曲名。
 
 # Usage
 

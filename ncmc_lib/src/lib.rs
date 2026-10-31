@@ -2,6 +2,8 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod error;
+#[cfg(feature = "transcode")]
+mod transcode;
 
 use aes::cipher::{BlockModeDecrypt as _, KeyInit as _, block_padding::Pkcs7};
 use base64::{Engine, prelude::BASE64_STANDARD};
@@ -172,6 +174,29 @@ impl NcmFile {
     pub fn save_without_meta_to(mut self, path: impl AsRef<Path>) -> Result<PathBuf> {
         let mut file = std::fs::File::create(path.as_ref())?;
         std::io::copy(&mut self, &mut file)?;
+        file.flush()?;
+        Ok(path.as_ref().to_owned())
+    }
+
+    /// Decrypt, decode and save as wav next to the original ncm file, without tags.
+    ///
+    /// The inner audio (mp3/flac/wav/aac/ogg/aiff/...) is transcoded to wav.
+    /// Requires the `transcode` feature.
+    #[cfg(feature = "transcode")]
+    pub fn save_as_wav(self) -> Result<PathBuf> {
+        let path = self.path.with_extension("wav");
+        self.save_as_wav_to(path)
+    }
+
+    /// Decrypt, decode and save as wav to the specified path, without tags.
+    ///
+    /// The inner audio (mp3/flac/wav/aac/ogg/aiff/...) is transcoded to wav.
+    /// Requires the `transcode` feature.
+    #[cfg(feature = "transcode")]
+    pub fn save_as_wav_to(mut self, path: impl AsRef<Path>) -> Result<PathBuf> {
+        let pcm = transcode::decode(&mut self)?;
+        let mut file = std::io::BufWriter::new(std::fs::File::create(path.as_ref())?);
+        transcode::pcm_to_wav(&pcm, &mut file)?;
         file.flush()?;
         Ok(path.as_ref().to_owned())
     }

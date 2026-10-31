@@ -1,3 +1,7 @@
 /target
 .DS_Store
-*.mp3
+ncm_c/tests/
+ncmc_lib/src/transcode.rs
+ncmc_lib/tests/
+威尼斯船歌.ncm
+威尼斯船歌.wav

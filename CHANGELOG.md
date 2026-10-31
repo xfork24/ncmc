@@ -9,6 +9,9 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 -->
 
 ## [Unreleased]
+
+- ncm_c 0.3.0 / ncmc_lib 0.4.0: output is always wav now (breaking). The inner audio (mp3/flac/wav/aac/ogg/aiff/...) is decoded and transcoded to wav without tags; undecodable files are reported as failed. New `transcode` feature (default) and `NcmFile::save_as_wav`/`save_as_wav_to` API.
+
 ## [0.2.10] - 2026-05-09
 
 - end with exitcode set

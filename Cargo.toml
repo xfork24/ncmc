@@ -4,7 +4,7 @@ resolver = "3"
 
 [workspace.package]
 authors = ["Louis <836250617@qq.com>"]
-description = "convert ncm to mp3 or flac ..."
+description = "convert ncm to wav"
 license = "MIT"
 edition = "2024"
 repository = "https://github.com/kingwingfly/ncmc"
